@@ -1,0 +1,7 @@
+[safe]
+	directory = /mnt/files/fedora
+[url "git@github.com:"]
+    insteadOf = https://github.com/
+[user]
+	email = phamchinhhoang@gmail.com
+	name = hoangpc0112
