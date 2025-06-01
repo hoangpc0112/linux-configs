@@ -160,7 +160,7 @@ whatsmyip () {
 # Git helper
 alias gs='git status'
 
-lazyg() {
+gpa() {
 	git add .
 	git commit -m "$1"
 	git push ssh-origin "$2"
