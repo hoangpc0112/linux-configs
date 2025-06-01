@@ -204,7 +204,7 @@ zf() {
 # fzf + zed
 zz() {
   local selected_item
-  selected_item=$( (find ~ -type f -print0; printf "Create new file...\0") | fzf -m --read0 --preview="bat --color=always {}")
+  selected_item=$( (find . -type f -print0; printf "Create new file...\0") | fzf -m --read0 --preview="bat --color=always {}")
 
   if [ -z "$selected_item" ]; then
     return 0
