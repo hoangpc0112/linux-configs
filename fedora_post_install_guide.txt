@@ -1,0 +1,105 @@
+1. Tăng tốc độ tải của dnf
+echo 'fastestmirror=True' | sudo tee -a /etc/dnf/dnf.conf
+echo 'max_parallel_downloads=10' | sudo tee -a /etc/dnf/dnf.conf
+
+2. Chỉnh DNS
+    2.1. IPv4: 8.8.8.8, 8.8.4.4
+    2.2. IPv6: 2001:4860:4860::8888, 2001:4860:4860::8844
+
+3. Cập nhật hệ thống
+sudo dnf upgrade -y
+
+4. RPM Fusion
+sudo dnf install https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
+
+5. Cài mediacodecs
+sudo dnf group install multimedia
+sudo dnf install libavcodec-freeworld
+
+6. Cài nvidia drivers:
+    6.1. Vào Software kéo xuống dưới cùng chọn Hardware Drivers
+    6.2. Chọn NVIDIA Linux Graphics Driver và Install
+    6.3 Chạy lệnh
+sudo dnf install nvidia-driver
+
+7. Vào Disk cài mount cho các ổ khác
+    7.1. Chọn ổ
+    7.2. Nhấp răng cưa chọn Edit Mount Options
+    7.3. Tắt User Session Defaults
+    7.4. Chỉnh Mount Point thành /mnt/<tên ổ đĩa>
+    7.5. OK và nhập pass
+
+8. Setting keybind
+    8.1. Chuyển workspace = ALT+Số
+    8.2. Chuyển window sang workspace khác = SHIFT+ALT+Số
+    8.3. Mở code editor = ALT+C
+    8.4. Mở terminal = ALT+Enter
+    8.5. Mở browser = ALT+B
+    8.6. Mở files = ALT+E
+    8.7. Hide window = ALT+D
+    8.8. Close window = ALT+Q
+
+9. Tải app:
+    9.1. gnome tweaks
+    9.2. onlyoffice
+    9.3. vlc
+    9.4. zed
+    9.5. zen
+    9.6. extension manager
+    9.7. ghostty
+dnf copr enable pgdev/ghostty
+dnf install ghostty
+    9.8. ibus-unikey
+sudo dnf install ibus-unikey -y
+ibus restart
+    9.9. htop
+sudo dnf install htop
+
+10. Chỉnh zen browser:
+    10.1. Nhập đường dẫn about:config
+    10.2. Tìm layers.acceleration.force-enabled và chuyển thành True
+    10.3. Tìm gfx.webrender.all và chuyển thành True
+
+11. Tải extension gnome:
+    11.1. blur my shell
+    11.2. burn my windows
+    11.3. clipboard indicator
+    11.4. forge
+    11.5. gnome 4x ui improvements
+    11.6. no overview at start-up
+    11.7. space bar
+    11.8. window title is back
+    11.9. Tray Icons: Reloaded
+
+12. Tải extension cho browser
+    12.1. dark mode
+    12.2. bitwarden
+    12.3. enhance yt
+    12.4. smooth scroll (setting 120 999 100 80 10 50)
+    12.5. ublock origin
+
+13. Tải font
+    13.1. Truy cập https://www.nerdfonts.com/font-downloads
+    13.2. Tải JetBrainsMono Nerd Font
+    13.3. Giải nén và cài JetBrainsMonoNL NF
+    13.4. Truy cập https://fonts.google.com/specimen/Inter
+    13.5. Giải nén và cài Inter
+
+14. Tải Preload:
+sudo dnf copr enable kylegospo/preload -y && sudo dnf install preload -y && sudo systemctl enable --now preload
+
+15. Cài input Tiếng Việt
+    15.1. Vào Settings -> Keyboard -> Add Input Source
+    15.2. Tìm và chọn Vietnamese
+    15.3. Chọn Vietnamese (Unikey)
+
+16. Làm đẹp BootLoader
+    16.1. git clone https://github.com/vinceliuice/Elegant-grub2-themes
+    16.2. sudo ./install.sh -b -t mojave
+
+17. Tải theme cho cursor và icon
+    17.1. Tạo folder .icons ở ~
+    17.2. Tải cursor tại https://www.gnome-look.org/p/1197198/
+    17.3. Tải icon tại https://www.gnome-look.org/p/1166289
+    17.4. Giải nén và di chuyển vào thư mục .icons
+    17.5. Vào gnome tweaks để chỉnh sửa
