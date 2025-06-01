@@ -158,10 +158,12 @@ whatsmyip () {
 }
 
 # Git helper
+alias gs='git status'
+
 lazyg() {
 	git add .
 	git commit -m "$1"
-	git push
+	git push ssh-origin "$2"
 }
 
 #######################################################
