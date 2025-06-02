@@ -80,17 +80,30 @@ alias mv='mv -i'
 alias mkdir='mkdir -p'
 alias rm='rm -i'
 if command -v trash &>/dev/null; then alias rm='trash -v'; fi
-alias rmd='/bin/rm --recursive --force --verbose'
+alias rmd='rm --recursive --force --verbose'
 
-# Directory browsing
+# Directory browsing, file and folder searching
 alias ls='ls -aFh --color=always'
-alias f="find . -maxdepth 1 | grep -i"
-alias cntfiles="for t in files links directories; do echo \`find . -type \${t:0:1} | wc -l\` \$t; done 2>/dev/null"
+
+fd() {
+  local dir
+  dir=$(find "${1:-.}" -maxdepth 3 -type d 2>/dev/null | fzf --preview 'tree -L 3 {}')
+  if [[ -n "$dir" ]]; then
+    z "$dir" || return
+  fi
+}
+
+ff() {
+  local file
+  file=$(find "${1:-.}" -type f -print 2>/dev/null | fzf --preview 'bat --color=always --line-range :100 {}')
+  if [[ -n "$file" ]]; then
+    echo "$file"
+  fi
+}
 
 # Process/command helpers
 alias h='history | grep '
 alias p='ps aux | grep '
-alias ccmd="type -t"
 
 # Reboot/power
 alias rbt='sudo shutdown -r now'
@@ -162,8 +175,8 @@ alias gs='git status'
 
 gpa() {
 	git add .
-	git commit -m "$1"
-	git push origin "$2"
+	git commit -m "$2"
+	git push origin "$1"
 }
 
 #######################################################
@@ -192,21 +205,11 @@ zed() {
   dev.zed.Zed "$@"
 }
 
-# fzf + zoxide
-zf() {
-    local dir
-    dir=$(zoxide query -l | fzf --height 40% --layout=reverse --prompt="zoxide-fzf> " \
-        --preview="ls -F {}" --preview-window=right:wrap \
-        --bind "ctrl-y:execute-silent(echo {} | xclip -selection clipboard)+abort")
-    if [ -n "$dir" ]; then
-        z "$dir"
-    fi
-}
-
-# fzf + zed
+# zed + fzf
 zz() {
   local selected_item
-  selected_item=$( (printf "Create new file...\0"; find . -type f -print0)  | fzf -m --read0 --preview="bat --style=numbers --color=always --line-range :100 {}")
+  selected_item=$( (printf "Create new file...\0"; find "${1:-.}" -type f -print0) | \
+    fzf -m --read0 --preview="bat --color=always --line-range :100 {}")
 
   if [ -z "$selected_item" ]; then
     return 0
