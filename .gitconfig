@@ -1,5 +1,5 @@
 [safe]
-	directory = /mnt/files/fedora
+	directory = /mnt/files/linux-configs
 
 [url "git@github.com:"]
     insteadOf = https://github.com/
