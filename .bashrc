@@ -108,7 +108,7 @@ fd() {
 ff() {
   find ~ /mnt -type f | fzf --style full \
       --input-label ' Input ' --header-label ' File Type ' \
-      --preview 'bat --color=always --line-range :100 {}' \
+      --preview 'bat --style="numbers,grid" --color=always --line-range :100 {}' \
       --bind 'result:transform-list-label:
           if [[ -z $FZF_QUERY ]]; then
             echo " $FZF_MATCH_COUNT items "
@@ -237,7 +237,7 @@ zz() {
     fzf -m --read0 \
         --style full \
         --input-label ' Input ' --header-label ' File Type ' \
-        --preview 'bat --color=always --line-range :100 {}' \
+        --preview 'bat --style="numbers,grid" --color=always --line-range :100 {}' \
         --bind 'result:transform-list-label:
             if [[ -z $FZF_QUERY ]]; then
               echo " $FZF_MATCH_COUNT items "
