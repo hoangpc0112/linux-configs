@@ -86,19 +86,43 @@ alias rmd='rm --recursive --force --verbose'
 alias ls='ls -aFh --color=always'
 
 fd() {
-  local dir
-  dir=$(find "${1:-.}" -maxdepth 3 -type d 2>/dev/null | fzf --preview 'tree -L 3 {}')
-  if [[ -n "$dir" ]]; then
-    z "$dir" || return
-  fi
+  z $(find ~ /mnt -type d | fzf --style full \
+      --input-label ' Input ' --header-label ' Directory Type ' \
+      --preview 'tree -L 3 {}' \
+      --bind 'result:transform-list-label:
+          if [[ -z $FZF_QUERY ]]; then
+            echo " $FZF_MATCH_COUNT items "
+          else
+            echo " $FZF_MATCH_COUNT matches for [$FZF_QUERY] "
+          fi
+          ' \
+      --bind 'focus:transform-preview-label:[[ -n {} ]] && printf " Previewing [%s] " {}' \
+      --bind 'focus:+transform-header:file --brief {} || echo "No directory selected"' \
+      --color 'border:#aaaaaa,label:#cccccc' \
+      --color 'preview-border:#9999cc,preview-label:#ccccff' \
+      --color 'list-border:#669966,list-label:#99cc99' \
+      --color 'input-border:#996666,input-label:#ffcccc' \
+      --color 'header-border:#6699cc,header-label:#99ccff')
 }
 
 ff() {
-  local file
-  file=$(find "${1:-.}" -type f -print 2>/dev/null | fzf --preview 'bat --color=always --line-range :100 {}')
-  if [[ -n "$file" ]]; then
-    echo "$file"
-  fi
+  find ~ /mnt -type f | fzf --style full \
+      --input-label ' Input ' --header-label ' File Type ' \
+      --preview 'bat --color=always --line-range :100 {}' \
+      --bind 'result:transform-list-label:
+          if [[ -z $FZF_QUERY ]]; then
+            echo " $FZF_MATCH_COUNT items "
+          else
+            echo " $FZF_MATCH_COUNT matches for [$FZF_QUERY] "
+          fi
+          ' \
+      --bind 'focus:transform-preview-label:[[ -n {} ]] && printf " Previewing [%s] " {}' \
+      --bind 'focus:+transform-header:file --brief {} || echo "No file selected"' \
+      --color 'border:#aaaaaa,label:#cccccc' \
+      --color 'preview-border:#9999cc,preview-label:#ccccff' \
+      --color 'list-border:#669966,list-label:#99cc99' \
+      --color 'input-border:#996666,input-label:#ffcccc' \
+      --color 'header-border:#6699cc,header-label:#99ccff'
 }
 
 # Process/command helpers
@@ -210,7 +234,24 @@ zed() {
 zz() {
   local selected_item
   selected_item=$( (printf "Create new file...\0"; find "${1:-.}" -type f -print0) | \
-    fzf -m --read0 --preview="bat --color=always --line-range :100 {}")
+    fzf -m --read0 \
+        --style full \
+        --input-label ' Input ' --header-label ' File Type ' \
+        --preview 'bat --color=always --line-range :100 {}' \
+        --bind 'result:transform-list-label:
+            if [[ -z $FZF_QUERY ]]; then
+              echo " $FZF_MATCH_COUNT items "
+            else
+              echo " $FZF_MATCH_COUNT matches for [$FZF_QUERY] "
+            fi
+            ' \
+        --bind 'focus:transform-preview-label:[[ -n {} ]] && printf " Previewing [%s] " {}' \
+        --bind 'focus:+transform-header:file --brief {} || echo "No file selected"' \
+        --color 'border:#aaaaaa,label:#cccccc' \
+        --color 'preview-border:#9999cc,preview-label:#ccccff' \
+        --color 'list-border:#669966,list-label:#99cc99' \
+        --color 'input-border:#996666,input-label:#ffcccc' \
+        --color 'header-border:#6699cc,header-label:#99ccff')
 
   if [ -z "$selected_item" ]; then
     return 0
