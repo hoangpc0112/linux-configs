@@ -208,12 +208,12 @@ ls /mnt/<disk-name>
 
 ## 9. Install Applications
 
-1. Gnome tweaks
-2. Only office
-3. VLC
-4. Zed editor
-5. Zen browser
-6. Extension manager
+1. GNOME tweaks (GNOME Software)
+2. OnlyOffice (GNOME Software)
+3. VLC (GNOME Software)
+4. Zed editor (GNOME Software)
+5. Zen browser (GNOME Software)
+6. Extension manager (GNOME Software)
 7. Ghostty terminal
 
 ```bash
@@ -411,9 +411,9 @@ sudo grubby --update-kernel=ALL --args="nvidia-drm.modeset=1"
 sudo systemctl disable NetworkManager-wait-online.service
 ```
 
-### Disable Gnome Software from Startup Apps
+### Disable GNOME Software from Startup Apps
 
-- Gnome software autostarts on boot for some reason, even though it is not required on every boot unless you want it to do updates in the background, this takes at least 100MB of RAM upto 900MB (as reported anecdotically). You can stop it from autostarting by:
+- GNOME software autostarts on boot for some reason, even though it is not required on every boot unless you want it to do updates in the background, this takes at least 100MB of RAM upto 900MB (as reported anecdotically). You can stop it from autostarting by:
 
 ```bash
 sudo rm /etc/xdg/autostart/org.gnome.Software.desktop
