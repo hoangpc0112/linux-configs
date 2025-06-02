@@ -172,6 +172,7 @@ whatsmyip () {
 
 # Git helper
 alias gs='git status'
+alias gd='git diff -w'
 
 gpa() {
 	git add .
