@@ -206,15 +206,15 @@ zf() {
 # fzf + zed
 zz() {
   local selected_item
-  selected_item=$( (find . -type f -print0; printf "Create new file...\0") | fzf -m --read0 --preview="bat --color=always {}")
+  selected_item=$( (printf "Create new file...\0"; find . -type f -print0)  | fzf -m --read0 --preview="bat --style=numbers --color=always --line-range :100 {}")
 
   if [ -z "$selected_item" ]; then
     return 0
   elif [ "$selected_item" = "Create new file..." ]; then
-    read -rp "Enter new file name (default: new-file.txt): " new_filename
+    read -rp "Enter new file name (default: new_file.txt): " new_filename
 
     if [ -z "$new_filename" ]; then
-      new_filename="new-file.txt"
+      new_filename="new_file.txt"
     fi
 
     if [ -f "$new_filename" ]; then
