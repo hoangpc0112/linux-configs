@@ -79,8 +79,8 @@ alias cp='cp -i'
 alias mv='mv -i'
 alias mkdir='mkdir -p'
 alias rm='rm -i'
-if command -v trash &>/dev/null; then alias rm='trash -v'; fi
-alias rmd='rm --recursive --force --verbose'
+if command -v trash &>/dev/null; then alias rm='trash'; fi
+alias rmd='trash --recursive --force'
 
 # Directory browsing, file and folder searching
 alias ls='ls -aFh --color=always'
@@ -232,12 +232,18 @@ zed() {
 
 # open file with zed
 zf() {
-  zed $(ff)
+  local selected_file
+  selected_file=$(ff)
+  if [[ -n "$selected_file" ]]; then
+    zed "$selected_file"
+  fi
 }
 
 # open folder with zed
 zd() {
-  zed $(find ~ /mnt -type d | fzf --style full \
+  local selected_directory
+
+  selected_directory=$(find ~ /mnt -type d | fzf --style full \
       --input-label ' Input ' --header-label ' Directory Type ' \
       --preview 'tree -L 5 {}' \
       --bind 'result:transform-list-label:
@@ -254,4 +260,8 @@ zd() {
       --color 'list-border:#669966,list-label:#99cc99' \
       --color 'input-border:#996666,input-label:#ffcccc' \
       --color 'header-border:#6699cc,header-label:#99ccff')
+
+  if [[ -n "$selected_directory" ]]; then
+    zed "$selected_directory"
+  fi
 }
