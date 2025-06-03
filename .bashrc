@@ -84,46 +84,6 @@ if command -v trash &>/dev/null; then alias rm='trash'; fi
 # Directory browsing, file and folder searching
 alias ls='ls -aFh --color=always'
 
-fd() {
-  z $(find ~ /mnt -type d | fzf --style full \
-      --input-label ' Input ' --header-label ' Directory Type ' \
-      --preview 'tree -L 5 {}' \
-      --bind 'result:transform-list-label:
-          if [[ -z $FZF_QUERY ]]; then
-            echo " $FZF_MATCH_COUNT items "
-          else
-            echo " $FZF_MATCH_COUNT matches for [$FZF_QUERY] "
-          fi
-          ' \
-      --bind 'focus:transform-preview-label:[[ -n {} ]] && printf " Previewing [%s] " {}' \
-      --bind 'focus:+transform-header:file --brief {} || echo "No directory selected"' \
-      --color 'border:#aaaaaa,label:#cccccc' \
-      --color 'preview-border:#9999cc,preview-label:#ccccff' \
-      --color 'list-border:#669966,list-label:#99cc99' \
-      --color 'input-border:#996666,input-label:#ffcccc' \
-      --color 'header-border:#6699cc,header-label:#99ccff')
-}
-
-ff() {
-  find ~ /mnt -type f | fzf --style full \
-      --input-label ' Input ' --header-label ' File Type ' \
-      --preview 'bat --style="numbers,grid" --color=always --line-range :500 {}' \
-      --bind 'result:transform-list-label:
-          if [[ -z $FZF_QUERY ]]; then
-            echo " $FZF_MATCH_COUNT items "
-          else
-            echo " $FZF_MATCH_COUNT matches for [$FZF_QUERY] "
-          fi
-          ' \
-      --bind 'focus:transform-preview-label:[[ -n {} ]] && printf " Previewing [%s] " {}' \
-      --bind 'focus:+transform-header:file --brief {} || echo "No file selected"' \
-      --color 'border:#aaaaaa,label:#cccccc' \
-      --color 'preview-border:#9999cc,preview-label:#ccccff' \
-      --color 'list-border:#669966,list-label:#99cc99' \
-      --color 'input-border:#996666,input-label:#ffcccc' \
-      --color 'header-border:#6699cc,header-label:#99ccff'
-}
-
 # Process/command helpers
 alias h='history | grep '
 alias p='ps aux | grep '
@@ -181,7 +141,7 @@ extract() {
 }
 
 # Show IP address
-whatsmyip () {
+ipme () {
 	echo -n "Internal IP: "
 	if command -v ip &>/dev/null; then
 		ip addr show wlan0 | grep "inet " | awk '{print $2}' | cut -d/ -f1
@@ -212,6 +172,34 @@ eval "$(starship init bash)"
 eval "$(zoxide init bash)"
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
+export FZF_DEFAULT_OPTS="
+--style full \
+--walker-skip .git,node_modules,target \
+--no-height \
+--no-reverse \
+--prompt 'Files> ' \
+--header 'CTRL-D: Directories / CTRL-F: Files' \
+--input-label ' Input '
+--header-label ' Entry Type ' \
+--preview '[[ \$FZF_PROMPT == *Files* ]] && bat --style=\"numbers\" --color=always --line-range :500 {} || tree -C {}' \
+--bind 'result:transform-list-label:
+  if [[ -z \$FZF_QUERY ]]; then
+    echo \" \$FZF_MATCH_COUNT items \"
+  else
+    echo \" \$FZF_MATCH_COUNT matches for [\$FZF_QUERY] \"
+  fi
+  ' \
+--bind 'focus:transform-preview-label:[[ -n {} ]] && printf \" Previewing [%s] \" {}' \
+--bind 'focus:+transform-header:file --brief {} || echo \"No entry selected\"' \
+--bind 'ctrl-d:change-prompt(Directories> )+reload(find * -type d)' \
+--bind 'ctrl-f:change-prompt(Files> )+reload(find * -type f)' \
+--color 'border:#aaaaaa,label:#cccccc' \
+--color 'preview-border:#9999cc,preview-label:#ccccff' \
+--color 'list-border:#669966,list-label:#99cc99' \
+--color 'input-border:#996666,input-label:#ffcccc' \
+--color 'header-border:#6699cc,header-label:#99ccff'
+"
+
 # Auto-ls on directory change
 cd () {
 	if [ -n "$1" ]; then
@@ -225,42 +213,7 @@ z () {
 	__zoxide_z "$@" && ls
 }
 
-zed() {
-  dev.zed.Zed "$@"
-}
-
-# open file with zed
+# zed + fzf multi-select
 zf() {
-  local selected_file
-  selected_file=$(ff)
-  if [[ -n "$selected_file" ]]; then
-    zed "$selected_file"
-  fi
-}
-
-# open folder with zed
-zd() {
-  local selected_directory
-
-  selected_directory=$(find ~ /mnt -type d | fzf --style full \
-      --input-label ' Input ' --header-label ' Directory Type ' \
-      --preview 'tree -L 5 {}' \
-      --bind 'result:transform-list-label:
-          if [[ -z $FZF_QUERY ]]; then
-            echo " $FZF_MATCH_COUNT items "
-          else
-            echo " $FZF_MATCH_COUNT matches for [$FZF_QUERY] "
-          fi
-          ' \
-      --bind 'focus:transform-preview-label:[[ -n {} ]] && printf " Previewing [%s] " {}' \
-      --bind 'focus:+transform-header:file --brief {} || echo "No directory selected"' \
-      --color 'border:#aaaaaa,label:#cccccc' \
-      --color 'preview-border:#9999cc,preview-label:#ccccff' \
-      --color 'list-border:#669966,list-label:#99cc99' \
-      --color 'input-border:#996666,input-label:#ffcccc' \
-      --color 'header-border:#6699cc,header-label:#99ccff')
-
-  if [[ -n "$selected_directory" ]]; then
-    zed "$selected_directory"
-  fi
+  fzf -m | xargs -r -d '\n' dev.zed.Zed
 }
