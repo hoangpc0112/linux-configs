@@ -181,7 +181,7 @@ export FZF_DEFAULT_OPTS="
 --header 'CTRL-D: Directories / CTRL-F: Files' \
 --input-label ' Input '
 --header-label ' Entry Type ' \
---preview '[[ \$FZF_PROMPT == *Files* ]] && bat --style=\"numbers\" --color=always --line-range :500 {} || tree -C {}' \
+--preview '~/.fzf/bin/fzf-preview.sh {}' \
 --bind 'result:transform-list-label:
   if [[ -z \$FZF_QUERY ]]; then
     echo \" \$FZF_MATCH_COUNT items \"
