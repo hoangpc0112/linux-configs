@@ -80,7 +80,6 @@ alias mv='mv -i'
 alias mkdir='mkdir -p'
 alias rm='rm -i'
 if command -v trash &>/dev/null; then alias rm='trash'; fi
-alias rmd='trash --recursive --force'
 
 # Directory browsing, file and folder searching
 alias ls='ls -aFh --color=always'
