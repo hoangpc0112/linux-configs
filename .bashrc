@@ -7,14 +7,14 @@ iatest=$(expr index "$-" i)
 # PRE-INIT (only run in interactive shells)
 #######################################################
 if [[ $- == *i* ]]; then
-    if command -v fastfetch &>/dev/null; then
-        fastfetch
-    fi
-    # Bell off
-    bind "set bell-style visible"
-    bind "set completion-ignore-case on"
-    bind "set show-all-if-ambiguous On"
-    stty -ixon
+  if command -v fastfetch &>/dev/null; then
+    fastfetch
+  fi
+  # Bell off
+  bind "set bell-style visible"
+  bind "set completion-ignore-case on"
+  bind "set show-all-if-ambiguous On"
+  stty -ixon
 fi
 
 # Source system-wide settings
@@ -22,9 +22,9 @@ fi
 
 # Enable programmable completion
 if [[ -f /usr/share/bash-completion/bash_completion ]]; then
-    . /usr/share/bash-completion/bash_completion
+  . /usr/share/bash-completion/bash_completion
 elif [[ -f /etc/bash_completion ]]; then
-    . /etc/bash_completion
+  . /etc/bash_completion
 fi
 
 #######################################################
@@ -111,6 +111,7 @@ alias remove='sudo dnf remove'
 alias upgrade='sudo dnf upgrade'
 alias brc='open ~/.bashrc'
 alias sbrc='source ~/.bashrc'
+alias nv='nvim'
 
 #######################################################
 # FUNCTIONS
@@ -118,39 +119,39 @@ alias sbrc='source ~/.bashrc'
 
 # Extract archives
 extract() {
-	for archive in "$@"; do
-		if [ -f "$archive" ]; then
-			case $archive in
-				*.tar.bz2) tar xvjf $archive ;;
-				*.tar.gz)  tar xvzf $archive ;;
-				*.bz2)     bunzip2 $archive ;;
-				*.rar)     rar x $archive ;;
-				*.gz)      gunzip $archive ;;
-				*.tar)     tar xvf $archive ;;
-				*.tbz2)    tar xvjf $archive ;;
-				*.tgz)     tar xvzf $archive ;;
-				*.zip)     unzip $archive ;;
-				*.Z)       uncompress $archive ;;
-				*.7z)      7z x $archive ;;
-				*)         echo "don't know how to extract '$archive'..." ;;
-			esac
-		else
-			echo "'$archive' is not a valid file!"
-		fi
-	done
+  for archive in "$@"; do
+    if [ -f "$archive" ]; then
+      case $archive in
+      *.tar.bz2) tar xvjf $archive ;;
+      *.tar.gz) tar xvzf $archive ;;
+      *.bz2) bunzip2 $archive ;;
+      *.rar) rar x $archive ;;
+      *.gz) gunzip $archive ;;
+      *.tar) tar xvf $archive ;;
+      *.tbz2) tar xvjf $archive ;;
+      *.tgz) tar xvzf $archive ;;
+      *.zip) unzip $archive ;;
+      *.Z) uncompress $archive ;;
+      *.7z) 7z x $archive ;;
+      *) echo "don't know how to extract '$archive'..." ;;
+      esac
+    else
+      echo "'$archive' is not a valid file!"
+    fi
+  done
 }
 
 # Show IP address
-ipme () {
-	echo -n "Internal IP: "
-	if command -v ip &>/dev/null; then
-		ip addr show wlan0 | grep "inet " | awk '{print $2}' | cut -d/ -f1
-	else
-		ifconfig wlan0 | grep "inet " | awk '{print $2}'
-	fi
+ipme() {
+  echo -n "Internal IP: "
+  if command -v ip &>/dev/null; then
+    ip addr show wlan0 | grep "inet " | awk '{print $2}' | cut -d/ -f1
+  else
+    ifconfig wlan0 | grep "inet " | awk '{print $2}'
+  fi
 
-	echo -n "External IP: "
-	curl -s ifconfig.me
+  echo -n "External IP: "
+  curl -s ifconfig.me
 }
 
 # Git helper
@@ -158,9 +159,9 @@ alias gs='git status'
 alias gd='git diff -w'
 
 gpa() {
-	git add .
-	git commit -m "$1"
-	git push origin "$2"
+  git add .
+  git commit -m "$1"
+  git push origin "$2"
 }
 
 #######################################################
@@ -191,8 +192,8 @@ export FZF_DEFAULT_OPTS="
   ' \
 --bind 'focus:transform-preview-label:[[ -n {} ]] && printf \" Previewing [%s] \" {}' \
 --bind 'focus:+transform-header:file --brief {} || echo \"No entry selected\"' \
---bind 'ctrl-d:change-prompt(Directories> )+reload(find * -type d)' \
---bind 'ctrl-f:change-prompt(Files> )+reload(find * -type f)' \
+--bind 'ctrl-d:change-prompt(Directories> )+reload(find . -type d)' \
+--bind 'ctrl-f:change-prompt(Files> )+reload(find . -type f)' \
 --color 'border:#aaaaaa,label:#cccccc' \
 --color 'preview-border:#9999cc,preview-label:#ccccff' \
 --color 'list-border:#669966,list-label:#99cc99' \
@@ -201,19 +202,24 @@ export FZF_DEFAULT_OPTS="
 "
 
 # Auto-ls on directory change
-cd () {
-	if [ -n "$1" ]; then
-		builtin cd "$@" && ls
-	else
-		builtin cd ~ && ls
-	fi
+cd() {
+  if [ -n "$1" ]; then
+    builtin cd "$@" && ls
+  else
+    builtin cd ~ && ls
+  fi
 }
 
-z () {
-	__zoxide_z "$@" && ls
+z() {
+  __zoxide_z "$@" && ls
 }
 
 # zed + fzf multi-select
 zf() {
   fzf -m | xargs -r -d '\n' dev.zed.Zed
+}
+
+# neovim + fzf multi-select
+nf() {
+  nv $(fzf -m)
 }
