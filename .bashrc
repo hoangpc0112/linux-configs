@@ -109,7 +109,7 @@ alias open='xdg-open'
 alias install='sudo dnf install'
 alias remove='sudo dnf remove'
 alias upgrade='sudo dnf upgrade'
-alias brc='open ~/.bashrc'
+alias brc='edit ~/.bashrc'
 alias sbrc='source ~/.bashrc'
 alias nv='nvim'
 
