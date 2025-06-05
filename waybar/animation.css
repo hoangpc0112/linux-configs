@@ -16,11 +16,8 @@
 }
 
 #custom-distro {
-  color: transparent;
   font-size: 14px;
   text-shadow: none;
-  animation: distro_expand 0.25s ease-in 0.25s forwards,
-    distro_in 0.25s ease-in 0.5s forwards;
 }
 
 #custom-power {

@@ -4,14 +4,14 @@
   "layer": "top",
   "position": "top",
   "mode": "dock",
-  "height": 20,
   "reload_style_on_change": true,
   "gtk-layer-shell": true,
 
   // ──────────────────────────────────────────────────────────┤ positions ├───
 
   "modules-left": [
-    "custom/theme",         // theme switcher
+    // "custom/theme",         // theme switcher
+    "idle_inhibitor",       // idle inhibitor
     "custom/left1",
 
     "hyprland/workspaces",  // workspaces
@@ -38,7 +38,7 @@
     "custom/right2",
 
     "custom/rightin1",
-    "idle_inhibitor",       // idle inhibitor
+    // "idle_inhibitor",       // idle inhibitor
     "clock#time",           // time
     "custom/right3",
 
@@ -61,10 +61,10 @@
     "backlight",            // brightness
 
     "custom/left8",
-    "battery",              // battery
+    "battery"             // battery
 
-    "custom/leftin2",
-    "custom/power"          // power button
+    // "custom/left5",
+    // "custom/power"          // power button
   ],
 
   // ─────────────────────────────────────────────────────┤ theme switcher ├───
@@ -234,14 +234,14 @@
   // ─────────────────────────────────────────────────────────────┤ distro ├───
 
   "custom/distro": {
-    "format": " ",
+    "format": " ",
     "tooltip": false
   },
 
   // ─────────────────────────────────────────────────────┤ idle inhibitor ├───
 
   "idle_inhibitor": {
-    "format": "{icon}",
+    "format": " {icon} ",
 
     "format-icons": {
       "activated": "󰈈 ",
@@ -256,17 +256,17 @@
   // ───────────────────────────────────────────────────────────────┤ time ├───
 
   "clock#time": {
-    "format": "{:%H:%M}",
+    "format": " 󰥔 {:%H:%M} ",
     "tooltip": false,
     // "tooltip-format": "Standard Time: {:%I:%M %p}",
     "min-length": 6,
-    "max-length": 6
+    "max-length": 10
   },
 
   // ───────────────────────────────────────────────────────────────┤ date ├───
 
   "clock#date": {
-    "format": "󰸗 {:%m-%d}",
+    "format": "󰸗 {:%d-%m}",
     "tooltip-format": "<tt>{calendar}</tt>",
 
     "calendar": {
@@ -298,21 +298,21 @@
   "custom/wifi": {
     "exec": "~/.config/waybar/scripts/wifi-status.sh",
     "return-type": "json",
-    "format": "{}",
+    "format": " {}",
     "on-click": "~/.config/waybar/scripts/wifi-menu.sh",
     "on-click-right": "kitty --title '󰤨  Network Manager TUI' bash -c nmtui",
     "interval": 1,
     "min-length": 1,
-    "max-length": 1
+    "max-length": 2
   },
 
   // ──────────────────────────────────────────────────────────┤ bluetooth ├───
 
   "bluetooth": {
-    "format": "󰂰",
+    "format": "󰂰 ",
     "format-disabled": "󰂲",
-    "format-connected": "󰂱",
-    "format-connected-battery": "󰂱",
+    "format-connected": "󰂱 ",
+    "format-connected-battery": "󰂱 ",
 
     "tooltip-format": 
       "{num_connections} connected",
@@ -329,7 +329,7 @@
     "on-click-right": "kitty --title '󰂯  Bluetooth TUI' bash -c bluetui",
     "interval": 1,
     "min-length": 1,
-    "max-length": 1
+    "max-length": 2
   },
 
   // ──────────────────────────────────────────────────────┤ system update ├───

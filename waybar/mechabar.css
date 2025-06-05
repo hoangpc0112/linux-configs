@@ -222,7 +222,7 @@ tooltip label {
 }
 
 #idle_inhibitor {
-  background: @time;
+  background: @main-bg;
   padding: 0 0 0 7px;
 }
 
@@ -421,7 +421,7 @@ tooltip label {
 #custom-right3,
 #custom-right4,
 #custom-right5 {
-  font-size: 14.68px;
+  font-size: 15.5px;
 }
 
 /* ─────────────────────────────────────────────────┤ left & right inverse ├───
@@ -429,18 +429,18 @@ tooltip label {
 #custom-leftin1,
 #custom-leftin2,
 #custom-rightin1 {
-  font-size: 15.5px;
+  font-size: 18.5px;
 }
 
 /* ──────────────────────────────────────────────────────────┤ distro icon ├───
 */
 #custom-distro {
-  font-size: 14.6px;
+  font-size: 15.5px;
 }
 
 #custom-left5,
 #custom-right2 {
-  font-size: 15.68px;
+  font-size: 18.5px;
 }
 
 /*
@@ -451,11 +451,13 @@ tooltip label {
 */
 #workspaces button {
   border-radius: 8px;
-  padding: 0 2px;
+  padding: 0 4px;
+  margin: 0 8px;
 }
 
 #workspaces button.active {
   padding: 0 6px;
+  margin: 0 6px;
 }
 
 /* ─────────────────────────────────────────────────────────┤ power button ├───
