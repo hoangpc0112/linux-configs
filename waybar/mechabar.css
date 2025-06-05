@@ -106,7 +106,7 @@ tooltip label {
   color: @module-fg;
   border-radius: 8px;
   box-shadow: none;
-  margin: 2px 5px;
+  margin: 2px 2px;
   padding: 0 4px;
   transition: none;
 }
@@ -448,11 +448,11 @@ tooltip label {
 */
 #workspaces button {
   border-radius: 8px;
-  padding: 0 4px;
+  padding: 0 5px;
 }
 
 #workspaces button.active {
-  padding: 0 6px;
+  padding: 0 5px;
 }
 
 /* ─────────────────────────────────────────────────────────┤ power button ├───
