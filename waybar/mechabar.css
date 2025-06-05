@@ -19,7 +19,6 @@ window#waybar {
 */
 window#waybar > box {
   background: @main-bg;
-  margin: 2px;
 }
 
 /* ─────────────────────────────────────────────────────────────┤ tooltips ├───
