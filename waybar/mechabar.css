@@ -122,8 +122,6 @@ tooltip label {
   background: @active-bg;
   text-shadow: 0 0 2px rgba(0, 0, 0, 0.6);
   box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.4);
-  margin: 2px;
-  padding: 0 6px;
 }
 
 #custom-right1 {
@@ -451,12 +449,10 @@ tooltip label {
 #workspaces button {
   border-radius: 8px;
   padding: 0 4px;
-  margin: 0 8px;
 }
 
 #workspaces button.active {
   padding: 0 6px;
-  margin: 0 6px;
 }
 
 /* ─────────────────────────────────────────────────────────┤ power button ├───
