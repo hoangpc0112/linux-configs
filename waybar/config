@@ -79,7 +79,7 @@
     "format": "{}",
     "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
     "exec": "date '+ %H:%M'",
-    "interval": 1
+    "interval": 60
   },
   "custom/date": {
     "format": "{}",
@@ -89,14 +89,17 @@
   },
   "cpu": {
     "format": " {usage}%",
-    "tooltip": false
+    "tooltip": false,
+    "interval": 1
   },
   "memory": {
-    "format": " {}%"
+    "format": " {}%",
+    "interval": 1
   },
   "temperature": {
     "critical-threshold": 80,
-    "format": " {temperatureC}"
+    "format": " {temperatureC}°C",
+    "interval": 1
   },
   "battery": {
     "states": {
@@ -107,16 +110,17 @@
     "format-full": "{icon} {capacity}%",
     "format-plugged": " {capacity}%",
     "format-alt": "{time} {icon}",
-    "format-icons": [" ", " ", " ", " ", " "]
+    "format-icons": ["", "", "", "", ""],
+    "interval": 1
   },
   "network": {
-    "format-wifi": " {cidr}",
-    "format-ethernet": " {cidr}",
-    "tooltip-format": " {ifname} via {gwaddr}",
-    "format-linked": "  No IP",
-    "format-disconnected": " Disconnected",
+    "format-wifi": "  {essid}",
+    "format-ethernet": "  Ethernet",
+    "tooltip-format": "{ifname} via {gwaddr}",
+    "format-linked": " No IP",
+    "format-disconnected": " Offline",
     "format-alt": "{ifname}: {ipaddr}/{cidr}",
-    "interval": 5
+    "interval": 1
   },
   "pulseaudio": {
     "format": "{icon}{volume}%",
@@ -126,7 +130,8 @@
     "format-icons": {
       "default": ["", " ", " "]
     },
-    "on-click": "pavucontrol"
+    "on-click": "pavucontrol",
+    "interval": 1
   },
   "custom/media": {
     "format": "{}",

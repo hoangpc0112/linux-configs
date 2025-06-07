@@ -2,10 +2,12 @@
   "$schema": "https://github.com/fastfetch-cli/fastfetch/raw/dev/doc/json_schema.json",
   "logo": {
     "source": "~/Pictures/cat.png",
+    "height": 22,
+    "width": 50,
     "padding": {
       "left": 3,
-      "right": 3,
-      "top": 3,
+      "right": 2,
+      "top": 1,
     },
   },
   "display": {
@@ -13,6 +15,30 @@
   },
   "modules": [
     "break",
+    {
+      "type": "users",
+      "key": " USER",
+      "format": "{1}",
+      "keyColor": "cyan",
+    },
+    {
+      "type": "custom",
+      "key": "│ ├",
+      "format": "Phạm Chính Hoàng",
+      "keyColor": "cyan",
+    },
+    {
+      "type": "custom",
+      "key": "│ ├",
+      "format": "01/12/2004",
+      "keyColor": "cyan",
+    },
+    {
+      "type": "custom",
+      "key": "│ └",
+      "format": "github.com/hoangpc0112",
+      "keyColor": "cyan",
+    },
     {
       "type": "os",
       "key": " DISTRO",
@@ -97,11 +123,6 @@
       "keyColor": "green",
     },
     {
-      "type": "swap",
-      "key": "│ ├󰓡",
-      "keyColor": "green",
-    },
-    {
       "type": "uptime",
       "key": "│ ├󰅐",
       "keyColor": "green",
@@ -110,11 +131,6 @@
       "type": "sound",
       "key": "  AUDIO",
       "format": "{2}",
-      "keyColor": "magenta",
-    },
-    {
-      "type": "player",
-      "key": "├󰥠",
       "keyColor": "magenta",
     },
     {
