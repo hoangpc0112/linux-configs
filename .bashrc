@@ -187,6 +187,10 @@ gpa() {
 # SHELL ENHANCEMENTS
 #######################################################
 
+# Wifi
+alias wfon='nmcli radio wifi on && echo "Wifi: $(nmcli radio wifi)"'
+alias wfoff='nmcli radio wifi off && echo "Wifi: $(nmcli radio wifi)"'
+
 # Use starship, zoxide and fzf
 eval "$(starship init bash)"
 eval "$(zoxide init bash)"
