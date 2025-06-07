@@ -11,7 +11,7 @@ if [[ $- == *i* ]]; then
     fastfetch
   fi
   # Bell off
-  bind "set bell-style visible"
+  bind "set bell-style off"
   bind "set completion-ignore-case on"
   bind "set show-all-if-ambiguous On"
   stty -ixon
@@ -105,13 +105,32 @@ alias 644='chmod -R 644'
 alias 666='chmod -R 666'
 alias 755='chmod -R 755'
 alias 777='chmod -R 777'
-alias open='xdg-open'
 alias install='sudo dnf install'
 alias remove='sudo dnf remove'
 alias upgrade='sudo dnf upgrade'
-alias brc='edit ~/.bashrc'
 alias sbrc='source ~/.bashrc'
-alias nv='nvim'
+alias brc='nv ~/.bashrc'
+
+# Set the default editor
+if command -v nvim &>/dev/null; then
+  export EDITOR=nvim
+  export VISUAL=nvim
+  alias nv='nvim'
+  alias snv='sudo nvim'
+else
+  export EDITOR=vim
+  export VISUAL=vim
+fi
+
+# Check if ripgrep is installed
+if command -v rg &>/dev/null; then
+  # Alias grep to rg if ripgrep is installed
+  alias grep='rg'
+else
+  # Alias grep to /usr/bin/grep with GREP_OPTIONS if ripgrep is not installed
+  alias grep="/usr/bin/grep $GREP_OPTIONS"
+fi
+unset GREP_OPTIONS
 
 #######################################################
 # FUNCTIONS
@@ -214,12 +233,11 @@ z() {
   __zoxide_z "$@" && ls
 }
 
-# zed + fzf multi-select
-zf() {
-  fzf -m | xargs -r -d '\n' dev.zed.Zed
-}
-
 # neovim + fzf multi-select
 nf() {
-  nv $(fzf -m)
+  local result
+  result=$(fzf -m)
+  if [ -n "$result" ]; then
+    nv "$result"
+  fi
 }

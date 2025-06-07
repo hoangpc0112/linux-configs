@@ -88,7 +88,7 @@ button:hover {
 #custom-date {
   padding: 0 10px;
   margin: 0 5px;
-  background-color: alpha(@crust, 0.8);
+  background-color: alpha(@crust, 0.75);
   border-radius: 15px;
   border: 1px solid @surface0;
 }
