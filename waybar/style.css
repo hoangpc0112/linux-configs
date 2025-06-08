@@ -94,7 +94,6 @@ button:hover {
 }
 
 #workspaces {
-  font-weight: bold;
   color: @mauve;
 }
 

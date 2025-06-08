@@ -1,0 +1,148 @@
+{
+  "margin-top": 5,
+  "margin-left": 10,
+  "margin-right": 10,
+  "margin-bottom": -4,
+  "height": 30,
+  "modules-left": [
+    "hyprland/workspaces",
+    "pulseaudio",
+    "custom/media"
+  ],
+  "modules-center": [
+    "hyprland/window"
+  ],
+  "modules-right": [
+    "network",
+    "cpu",
+    "memory",
+    "temperature",
+    "battery",
+    "custom/time",
+    "custom/date"
+  ],
+  "hyprland/window": {
+    "format": " {} ",
+    "tooltip": false,
+    "min-length": 5,
+    "max-length": 50,
+    "rewrite": {
+      "  ": " <span foreground='#89b4fa'> </span>Hyprland ",
+      " ~ ": "   Terminal ",
+      " zsh ": "   Terminal ",
+      " kitty ": "   Terminal ",
+      " tmux(.*) ": " <span foreground='#a6e3a1'> </span> Tmux ",
+      " (.*)Mozilla Firefox ": " <span foreground='#f38ba8'>󰈹 </span> Firefox ",
+      " (.*) — Mozilla Firefox ": " <span foreground='#f38ba8'>󰈹 </span> $1 ",
+      " (.*)Zen Browser ": " <span foreground='#fab387'>󰺕 </span> Zen Browser ",
+      " (.*) — Zen Browser ": " <span foreground='#fab387'>󰺕 </span> $1 ",
+      " (.*) - Visual Studio Code ": " <span foreground='#89b4fa'>󰨞 </span> $1 ",
+      " (.*)Visual Studio Code ": " <span foreground='#89b4fa'>󰨞 </span> Visual Studio Code ",
+      " nvim ": " <span foreground='#a6e3a1'> </span> Neovim ",
+      " nvim (.*) ": " <span foreground='#a6e3a1'> </span> $1 ",
+      " vim ": " <span foreground='#a6e3a1'> </span> Vim ",
+      " vim (.*) ": " <span foreground='#a6e3a1'> </span> $1 ",
+      " (.*)Spotify ": " <span foreground='#a6e3a1'> </span> Spotify ",
+      " (.*)Spotify Premium ": " <span foreground='#a6e3a1'> </span> Spotify Premium ",
+      " OBS(.*) ": " <span foreground='#a6adc8'>󰻃 </span> OBS Studio ",
+      " VLC media player ": " <span foreground='#fab387'>󰕼 </span> VLC Media Player ",
+      " (.*) - VLC media player ": " <span foreground='#fab387'>󰕼 </span> $1 ",
+      " (.*) - mpv ": " <span foreground='#cba6f7'> </span> $1 ",
+      " qView ": " 󰋩  qView ",
+      " (.*).jpg ": " 󰋩  $1.jpg ",
+      " (.*).png ": " 󰋩  $1.png ",
+      " (.*).svg ": " 󰋩  $1.svg ",
+      " • Discord(.*) ": " Discord $1 ",
+      " (.*)Discord(.*) ": " <span foreground='#89b4fa'> </span> $1 Discord $2 ",
+      " vesktop ": " <span foreground='#89b4fa'> </span> Discord ",
+      " ONLYOFFICE Desktop Editors ": " <span foreground='#f38ba8'> </span> OnlyOffice Desktop ",
+      " (.*).docx ": " <span foreground='#89b4fa'>󰈭 </span> $1.docx ",
+      " (.*).xlsx ": " <span foreground='#a6e3a1'>󰈜 </span> $1.xlsx ",
+      " (.*).pptx ": " <span foreground='#fab387'>󰈨 </span> $1.pptx ",
+      " (.*).pdf ": " <span foreground='#f38ba8'> </span> $1.pdf ",
+      " Authenticate ": "   Authenticate "
+    }
+  },
+  "hyprland/workspaces": {
+    "format": "{icon}",
+    "on-click": "activate",
+    "format-icons": {
+      "active": ""
+    },
+    "sort-by-number": true,
+    "persistent-workspaces": {
+      "*": 5,
+      "HDMI-A-1": 3
+    }
+  },
+  "custom/time": {
+    "format": "{}",
+    "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
+    "exec": "date '+ %H:%M'",
+    "interval": 60
+  },
+  "custom/date": {
+    "format": "{}",
+    "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
+    "exec": "date '+ %d/%m/%Y'",
+    "interval": 3600
+  },
+  "cpu": {
+    "format": " {usage}%",
+    "tooltip": false,
+    "interval": 1
+  },
+  "memory": {
+    "format": " {}%",
+    "interval": 1
+  },
+  "temperature": {
+    "critical-threshold": 80,
+    "format": " {temperatureC}°C",
+    "interval": 1
+  },
+  "battery": {
+    "states": {
+      "warning": 30,
+      "critical": 15
+    },
+    "format": "{icon} {capacity}%",
+    "format-full": "{icon} {capacity}%",
+    "format-plugged": " {capacity}%",
+    "format-alt": "{time} {icon}",
+    "format-icons": ["", "", "", "", ""],
+    "interval": 1
+  },
+  "network": {
+    "format-wifi": "  {essid}",
+    "format-ethernet": " Ethernet",
+    "tooltip-format": "{ifname} via {gwaddr}",
+    "format-linked": " No IP",
+    "format-disconnected": " Offline",
+    "format-alt": "{ifname}: {ipaddr}/{cidr}",
+    "interval": 1
+  },
+  "pulseaudio": {
+    "format": "{icon}{volume}%",
+    "format-bluetooth": "{volume}% {icon}",
+    "format-bluetooth-muted": " {icon}",
+    "format-muted": " ",
+    "format-icons": {
+      "default": ["", " ", " "]
+    },
+    "on-click": "pavucontrol",
+    "interval": 1
+  },
+  "custom/media": {
+    "format": "{}",
+    "return-type": "json",
+    "exec": "player_status=$(playerctl status 2>/dev/null); if [[ $player_status == 'Playing' ]]; then playerctl metadata --format '{\"text\": \"  {{ title }}\"}' || echo '{\"text\": \"  No media found\"}'; elif [[ $player_status == 'Paused' ]]; then playerctl metadata --format '{\"text\": \"  {{ title }}\"}' || echo '{\"text\": \"  No media found\"}'; else echo '{\"text\": \"No media found\"}'; fi",
+    "on-click": "playerctl play-pause",
+    "on-scroll-up": "playerctl next",
+    "on-scroll-down": "playerctl previous",
+    "max-length": 35,
+    "tooltip": true,
+    "escape": true,
+    "interval": 1
+  }
+}
