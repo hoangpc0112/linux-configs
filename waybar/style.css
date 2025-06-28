@@ -49,7 +49,7 @@ button:hover {
 }
 
 #workspaces button {
-  padding: 0 8px;
+  padding: 0 7px;
   background-color: transparent;
   color: @subtext0;
 }
@@ -76,6 +76,7 @@ button:hover {
 }
 
 #battery,
+#tray,
 #cpu,
 #memory,
 #temperature,
